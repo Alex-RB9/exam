@@ -1,11 +1,14 @@
 #include<stdio.h>
+#include<stdlib.h>
 //For Counting no of Bits
 int NBits(unsigned int Num){
     int index = 0;
+    if(Num != 0){
     while (Num != 0){
         Num = (Num -Num%2)/2;
         index++;
-    }
+    }}
+    else {index = 1;}
     return index;
 }
 //This converts the input into a binary array
@@ -17,26 +20,50 @@ int* Binary(unsigned int Num){
     while (Num != 0){
         I[index] = Num%2;
         Num = (Num - I[index])/2;
-        printf("%d", I[index]);
         index++; 
     }
     return I;
 }
-//To join and left shift two arrays. First index is 0, then we just copy the Num2 array into I upto s2-1 th index.
-int* JoinArrayLS(int* Num1,int* Num2){
-    int s1 = sizeof(Num1);
-    int s2 = sizeof(Num2);
-    int* I = (int*)malloc((s1+s2)*sizeof(int));
-    I[0] = 0;
+//Left shifts an array.
+int* LfShift(int Arr[], unsigned int size){
+    int* I = (int*)malloc((size)*sizeof(int));
+    printf("%d\n", size);
+    printf("%d\n", Arr[size-1]);
+    while (size >= 0)
+    {
+        I[size] = Arr[size - 1];
+        size--;
+    }
+    return I;
 }
-int main(){
-    unsigned int A;
-    unsigned int Q = 1;
-    unsigned int M;
+int main(){ 
+    
+    unsigned int q;
+    unsigned int m;
     unsigned int N;
-    unsigned int temp;
-    scanf("Enter your divisor: %i", &M);
-    scanf("Enter your dividend: %i", &Q);
-    A = 0;
-    N = NBits(Q);
+    int* A = {0};
+    int* tmp = {0};
+    
+    printf("Enter your divisor: ");
+    scanf("%i", &m);
+    int* M = Binary(m);
+    
+    printf("Enter your dividend: ");
+    scanf("%i", &q);
+    int* Q = Binary(q);
+    
+    N = NBits(q);
+    printf("%d\n", N);
+    /*
+    int i;
+    for(i = 0; i < N;){
+        A = LfShift(A, sizeof(A)/sizeof(int));
+        *A = *(Q+i);
+        if(A >= m){
+            A = A - m;
+            *(Q+i) = 1;
+        }
+        i++;
+    }
+    */    
 }
